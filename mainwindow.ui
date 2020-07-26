@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>759</width>
-    <height>244</height>
+    <width>525</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,6 +19,18 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLCDNumber" name="timeNumber">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>100</height>
+         </size>
+        </property>
         <property name="digitCount">
          <number>9</number>
         </property>
@@ -40,23 +52,42 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="stopButton">
-          <property name="text">
-           <string>Stop</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addButton">
+         <widget class="QPushButton" name="lapButton">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <property name="text">
-           <string>Add</string>
+           <string>Lap</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="stopButton">
+          <property name="text">
+           <string>Stop &amp;&amp; Clear</string>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QTableView" name="tableView">
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+       </widget>
       </item>
      </layout>
     </item>
@@ -67,7 +98,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>759</width>
+     <width>525</width>
      <height>29</height>
     </rect>
    </property>

@@ -1,14 +1,13 @@
+#include <QApplication>
+#include <QDebug>
+#include <QTimer>
+
 #include "mainwindow.h"
 
-#include <QApplication>
-#include <QTimer>
-#include <QDebug>
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("QChronometer");
+    w.setWindowTitle("Qronometer");
 
     w.show();
     return a.exec();
