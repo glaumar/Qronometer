@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 
-#include <QDebug>
-#include <QTime>
+#include <CSVExporter.h>
+#include <JsonExporter.h>
+
+#include <QFileDialog>
+#include <QStandardPaths>
 
 #include "ui_mainwindow.h"
 
@@ -13,7 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
                      &MainWindow::setTimeLabel);
     timer_.setInterval(11);
     ui->timeNumber->display("00:00.000");
+    ui->lapButton->setEnabled(false);
 
+    // model and tableview
     model_.setHorizontalHeaderItem(0, new QStandardItem("#"));
     model_.setHorizontalHeaderItem(1, new QStandardItem("Total"));
     model_.setHorizontalHeaderItem(2, new QStandardItem("Lap"));
@@ -22,7 +27,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->setColumnWidth(0, 50);
     ui->tableView->setSortingEnabled(true);
 
-    ui->lapButton->setEnabled(false);
+    // export menu
+    QMenu *exportMenu = new QMenu(this);
+    QAction *csvAction = exportMenu->addAction("CSV document");
+    QAction *jsonAction = exportMenu->addAction("JSON document");
+
+    connect(csvAction, &QAction::triggered, [this]() {
+        CSVExporter exporter(&model_);
+        exportData(exporter, "CSV document (*.csv)");
+    });
+    connect(jsonAction, &QAction::triggered, [this]() {
+        JsonExporter exporter(&model_);
+        exportData(exporter, "JSON document (*.json)");
+    });
+
+    ui->exportButton->setMenu(exportMenu);
+    ui->exportButton->setEnabled(false);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -45,6 +65,7 @@ void MainWindow::pause() {
     timer_.stop();
     time_status_ = MainWindow::PAUSED;
     ui->lapButton->setEnabled(false);
+    ui->exportButton->setEnabled(true);
 }
 
 void MainWindow::resume() {
@@ -52,11 +73,13 @@ void MainWindow::resume() {
     elapsed_timer_.restart();
     time_status_ = MainWindow::STARTED;
     ui->lapButton->setEnabled(true);
+    ui->exportButton->setEnabled(false);
 }
 
 void MainWindow::stop() {
     timer_.stop();
     ui->lapButton->setEnabled(false);
+    ui->exportButton->setEnabled(false);
     ela_msecs_ = 0;
     order_ = 0;
     last_lap_msecs_ = 0;
@@ -104,3 +127,17 @@ void MainWindow::on_stopButton_clicked() {
 }
 
 void MainWindow::on_lapButton_clicked() { lap(); }
+
+void MainWindow::exportData(const AbstractExporter &exporter,
+                            const QString &fileFilter) {
+    QString path = QFileDialog::getSaveFileName(
+        this, "Save to...",
+        QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+        fileFilter);
+
+    exporter.exportTo(path);
+}
+
+// TODO:
+// - quit warming
+// - sort problem

@@ -1,8 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <AbstractExporter.h>
+
+#include <QAction>
 #include <QElapsedTimer>
 #include <QMainWindow>
+#include <QMenu>
 #include <QStandardItemModel>
 #include <QTime>
 #include <QTimer>
@@ -19,6 +23,7 @@ class MainWindow : public QMainWindow {
    public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
    public slots:
     void start();
     void pause();
@@ -36,6 +41,9 @@ class MainWindow : public QMainWindow {
     qint64 last_lap_msecs_ = 0;
     QStandardItemModel model_{0, 4};
     int order_ = 0;
+
+    void exportData(const AbstractExporter &exporter,
+                    const QString &fileFilter = QString());
 
    private slots:
     void setTimeLabel();
