@@ -89,7 +89,8 @@ void MainWindow::stop() {
 
 void MainWindow::lap() {
     order_++;
-    QStandardItem *item0 = new QStandardItem(QString::number(order_));
+    QStandardItem *item0 = new QStandardItem();
+    item0->setData(order_, Qt::DisplayRole);
 
     int msecs = elapsed_timer_.elapsed() + ela_msecs_;
     QTime time = QTime::fromMSecsSinceStartOfDay(msecs);
@@ -140,4 +141,4 @@ void MainWindow::exportData(const AbstractExporter &exporter,
 
 // TODO:
 // - quit warming
-// - sort problem
+// - translate to zh
