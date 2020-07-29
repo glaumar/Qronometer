@@ -4,6 +4,7 @@
 #include <JsonExporter.h>
 
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QStandardPaths>
 
 #include "ui_mainwindow.h"
@@ -143,6 +144,20 @@ void MainWindow::exportData(const AbstractExporter &exporter,
     exporter.exportTo(path);
 }
 
+void MainWindow::closeEvent(QCloseEvent *event) {
+    if (time_status_ != MainWindow::STARTED) {
+        return;
+    }
+
+    QMessageBox::StandardButton answer = QMessageBox::question(
+        this, tr("Quit"), tr("Timer is runing, Are you sure to quit?"));
+
+    if (answer == QMessageBox::Yes) {
+        event->accept();
+    } else {
+        event->ignore();
+    }
+}
+
 // TODO:
-// - quit warming
 // - translate to zh

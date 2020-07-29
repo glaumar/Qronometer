@@ -10,6 +10,7 @@
 #include <QStandardItemModel>
 #include <QTime>
 #include <QTimer>
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,6 +31,9 @@ class MainWindow : public QMainWindow {
     void resume();
     void stop();
     void lap();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
    private:
     Ui::MainWindow *ui;
