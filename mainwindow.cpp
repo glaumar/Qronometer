@@ -91,13 +91,17 @@ void MainWindow::lap() {
     order_++;
     QStandardItem *item0 = new QStandardItem();
     item0->setData(order_, Qt::DisplayRole);
+    item0->setEditable(false);
 
     int msecs = elapsed_timer_.elapsed() + ela_msecs_;
     QTime time = QTime::fromMSecsSinceStartOfDay(msecs);
     QStandardItem *item1 = new QStandardItem(time.toString("mm:ss.zzz"));
+    item1->setEditable(false);
 
     QTime lap_time = QTime::fromMSecsSinceStartOfDay(msecs - last_lap_msecs_);
     QStandardItem *item2 = new QStandardItem(lap_time.toString("mm:ss.zzz"));
+    item2->setEditable(false);
+
     last_lap_msecs_ = msecs;
 
     QList<QStandardItem *> items{item0, item1, item2};
