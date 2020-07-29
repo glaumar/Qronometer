@@ -150,7 +150,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     }
 
     QMessageBox::StandardButton answer = QMessageBox::question(
-        this, tr("Quit"), tr("Timer is runing, Are you sure to quit?"));
+        this, "Quit", "Timer is runing, Are you sure to quit?");
 
     if (answer == QMessageBox::Yes) {
         event->accept();
@@ -158,6 +158,3 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         event->ignore();
     }
 }
-
-// TODO:
-// - translate to zh
