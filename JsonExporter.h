@@ -3,10 +3,14 @@
 
 #include <AbstractExporter.h>
 
-class JsonExporter : public AbstractExporter {
-   public:
-    JsonExporter(QAbstractItemModel *model) : AbstractExporter(model){};
+class JsonExporter : public AbstractExporter
+{
+  public:
+    JsonExporter(QAbstractItemModel* model)
+      : AbstractExporter(model)
+    {}
+
     void exportTo(QString path) const override;
 };
 
-#endif  // JSONEXPORTER_H
+#endif // JSONEXPORTER_H

@@ -5,9 +5,12 @@
 #include <QTextStream>
 #include <QVariant>
 
-void CSVExporter::exportTo(QString path) const {
+void
+CSVExporter::exportTo(QString path) const
+{
     QFile file(path);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
 
     QTextStream out(&file);
     out << "#Number, Total, Lap, Note\n";
@@ -16,7 +19,9 @@ void CSVExporter::exportTo(QString path) const {
             QModelIndex index = model_->index(r, c);
             QVariant data = model_->data(index);
             out << data.toString();
-            if (c < model_->columnCount() - 1) out << ",";
+
+            if (c < model_->columnCount() - 1)
+                out << ",";
         }
         out << "\n";
     }

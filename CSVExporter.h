@@ -3,10 +3,12 @@
 
 #include <AbstractExporter.h>
 
-class CSVExporter : public AbstractExporter {
-   public:
-    CSVExporter(QAbstractItemModel *model) : AbstractExporter(model){};
+class CSVExporter : public AbstractExporter
+{
+  public:
+    CSVExporter(QAbstractItemModel* model)
+      : AbstractExporter(model){};
     void exportTo(QString path) const override;
 };
 
-#endif  // CSVEXPORTER_H
+#endif // CSVEXPORTER_H

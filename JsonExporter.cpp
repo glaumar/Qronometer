@@ -8,9 +8,12 @@
 #include <QTextStream>
 #include <QVariant>
 
-void JsonExporter::exportTo(QString path) const {
+void
+JsonExporter::exportTo(QString path) const
+{
     QFile file(path);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
 
     QTextStream out(&file);
 
@@ -38,7 +41,7 @@ void JsonExporter::exportTo(QString path) const {
         jarr.append(json);
     }
 
-    QJsonDocument jdoc{jarr};
+    QJsonDocument jdoc{ jarr };
 
     out << jdoc.toJson(QJsonDocument::Indented);
 }
